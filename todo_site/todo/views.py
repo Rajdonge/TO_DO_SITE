@@ -22,6 +22,12 @@ def index(request):
     }
     return render(request, "todo/index.html", page)
     
+def mark_done(request, item_id):
+    item = Todo.objects.get(id=item_id)
+    item.status = True
+    item.save()
+    messages.success(request, "Task marked as done!")
+    return redirect("todo")
 
 # Function to remove item, it receives todo item_id as primary key from url
 def remove(request, item_id):
